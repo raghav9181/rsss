@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GCC Intelligence — Feasibility Workspace</title>
+<style>
+:root{--ink:#17253b;--muted:#68788e;--line:#e4eaf1;--bg:#f4f7fb;--blue:#2456d8;--green:#137a58;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1440px;margin:auto;padding:24px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}.brand{font-weight:850;font-size:20px;letter-spacing:-.6px;display:flex;gap:10px;align-items:center}.logo{display:grid;place-items:center;background:#1f4fd0;color:#fff;border-radius:10px;width:36px;height:36px}.nav{display:flex;gap:8px}.nav button{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:9px;font-weight:650}.nav button.active,.nav button:hover{background:#e7edff;color:#214bc0}.status{background:#e1f5eb;color:#126d4c;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:750}
+.hero{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#6b7c93}.hero h1{font-size:clamp(27px,3vw,39px);letter-spacing:-1.4px;margin:8px 0}.hero p{color:var(--muted);margin:0;line-height:1.55}.actions{display:flex;gap:10px}.btn{border:1px solid var(--line);background:white;color:var(--ink);border-radius:10px;padding:11px 15px;font-weight:700}.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:20px;align-items:start}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 18px #17253b06}.formcard{padding:20px;position:sticky;top:18px}.card h2{font-size:15px;margin:0}.muted{color:var(--muted)}.field{margin-top:17px}.field label{display:flex;justify-content:space-between;font-size:12px;font-weight:750;color:#596b82;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #dce4ee;border-radius:9px;padding:11px 12px;color:var(--ink);background:white;outline:none}.field input:focus,.field select:focus{border-color:#7090f5;box-shadow:0 0 0 3px #2456d814}.field small{display:block;color:#8794a5;margin-top:5px;font-size:10px}.formcard .primary{width:100%;margin-top:20px;padding:13px}.disclaimer{font-size:10px;color:#8491a2;line-height:1.5;margin-top:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.kpi{padding:17px}.kpihead{display:flex;align-items:center;justify-content:space-between;color:#718198;font-size:11px;font-weight:750}.kpiicon{background:#edf2ff;color:#3159c5;border-radius:8px;width:30px;height:30px;display:grid;place-items:center;font-size:15px}.value{font-size:clamp(18px,2vw,25px);letter-spacing:-.8px;font-weight:850;margin:13px 0 5px}.delta{font-size:11px;color:var(--green);font-weight:700}.hint{font-size:11px;color:#8390a2}
+.section{margin-top:22px}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.sectionhead h2{font-size:16px;margin:0}.sectionhead p{font-size:11px;color:var(--muted);margin:5px 0 0}.segmented{display:flex;background:#e9eef5;padding:4px;border-radius:9px;gap:3px}.segmented button{border:0;background:transparent;color:#68788e;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:750}.segmented button.active{background:white;color:#234dbd;box-shadow:0 1px 3px #1a2b4514}
+.tablecard{overflow:hidden}.tabletop{padding:15px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.tag{font-size:10px;padding:6px 8px;border-radius:6px;background:#eef3ff;color:#3155b9;font-weight:800}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{text-align:left;padding:12px 15px;background:#fbfcfe;color:#8390a2;font-size:10px;text-transform:uppercase;letter-spacing:.06em}td{padding:14px 15px;border-top:1px solid #edf1f6;font-size:12px}td strong{font-size:12px}.city{display:flex;align-items:center;gap:10px}.cityicon{width:31px;height:31px;display:grid;place-items:center;border-radius:8px;background:#f0f4fa}.subline{font-size:10px;color:#8794a5;margin-top:4px}.score{display:inline-block;padding:6px 8px;background:#e7f7ef;color:#137550;border-radius:7px;font-weight:850}.bar{height:5px;width:65px;background:#edf1f6;border-radius:9px;margin-top:7px;overflow:hidden}.bar span{height:100%;display:block;background:#3e70e9;border-radius:9px}.recommend{font-size:9px;display:inline-block;color:#137550;background:#e7f7ef;padding:4px 6px;border-radius:5px;margin-left:5px}
+.bottomgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.inner{padding:18px}.chart{height:170px;display:flex;align-items:end;gap:14px;padding:20px 12px 0;border-bottom:1px solid var(--line)}.barcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%;gap:8px}.barcol .barshape{width:min(35px,70%);border-radius:6px 6px 0 0;background:linear-gradient(180deg,#6388f3,#2e58d0);min-height:5px}.barcol:nth-child(2n) .barshape{background:linear-gradient(180deg,#80a4f7,#5576d8)}.barcol span{font-size:10px;color:#6e7d92}.legend{display:flex;justify-content:space-between;margin-top:10px;font-size:10px;color:#8390a2}.taxrow{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid #edf1f6;font-size:12px}.taxrow:last-child{border:0}.taxrow strong{font-size:13px}.pill{padding:5px 7px;border-radius:6px;background:#f1f4f8;color:#68788e;font-size:10px;font-weight:750}
+.notice{display:flex;gap:10px;background:#fff9e9;border:1px solid #f4e5b5;border-radius:12px;padding:12px 14px;color:#7d6424;font-size:11px;line-height:1.5;margin-top:18px}.notice b{color:#624b11}.footer{color:#8996a6;font-size:10px;text-align:center;padding:22px}
+.toast{position:fixed;right:22px;bottom:22px;background:#17253b;color:white;padding:13px 17px;border-radius:11px;box-shadow:0 8px 30px #17253b30;font-size:12px;display:none;z-index:10}.view{display:none}.view.active{display:block}
+.policygrid,.vendorgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.mini{padding:17px}.mini .big{font-size:20px;font-weight:850;margin:12px 0 5px}.mini p{font-size:11px;color:var(--muted);line-height:1.5}.mini .pill{display:inline-block}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.formcard{position:static}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.bottomgrid{grid-template-columns:1fr}.nav{display:none}}
+@media(max-width:600px){.shell{padding:14px}.hero{align-items:flex-start;flex-direction:column}.actions{width:100%}.actions button{flex:1}.kpis{grid-template-columns:1fr 1fr}.policygrid,.vendorgrid{grid-template-columns:1fr}.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand"><span class="logo">G</span><span>GCC <span style="color:#5272d7">INTELLIGENCE</span></span></div>
+    <nav class="nav"><button class="active" data-view="overview">Overview</button><button data-view="policies">State incentives</button><button data-view="vendors">Vendor network</button></nav>
+    <span class="status">● DEMO WORKSPACE</span>
+  </header>
+  <section class="hero">
+    <div><div class="eyebrow">India expansion / Decision workspace</div><h1>Find your India GCC advantage.</h1><p>Model location economics, compare tax scenarios, and make your next move with confidence.</p></div>
+    <div class="actions"><button class="btn" id="reset">Reset</button><button class="btn primary" id="export">↧ Export summary</button></div>
+  </section>
+
+  <section id="overview" class="view active">
+    <div class="layout">
+      <aside class="card formcard">
+        <h2>Feasibility assumptions</h2><p class="muted" style="font-size:11px;margin:6px 0 0">Tune the scenario to see estimates update.</p>
+        <div class="field"><label for="headcount">Target headcount <span id="headcountVal">300 people</span></label><input id="headcount" type="range" min="50" max="2000" step="50" value="300"/></div>
+        <div class="field"><label for="function">Primary function</label><select id="function"><option value="engineering">AI & Engineering</option><option value="finance">Finance & Shared Services</option><option value="mixed">Multi-function GCC</option></select></div>
+        <div class="field"><label for="growth">Annual growth <span id="growthVal">20%</span></label><input id="growth" type="range" min="0" max="50" step="5" value="20"/></div>
+        <div class="field"><label for="budget">Annual operating budget</label><select id="budget"><option value="any">No hard cap</option><option value="20">Up to ₹20 crore</option><option value="35">Up to ₹35 crore</option><option value="50">Up to ₹50 crore</option></select></div>
+        <div class="field"><label for="regime">Tax structure scenario</label><select id="regime"><option value="wos">Wholly owned subsidiary · 115BAA</option><option value="gift">GIFT City / IFSC · illustrative</option><option value="sez">SEZ / STPI hybrid · illustrative</option></select></div>
+        <div class="field"><label for="profit">Annual taxable profit assumption</label><select id="profit"><option value="10">₹10 crore</option><option value="25" selected>₹25 crore</option><option value="50">₹50 crore</option><option value="100">₹100 crore</option></select></div>
+        <button class="btn primary" id="run">↻ Recalculate scenario</button>
+        <p class="disclaimer">Illustrative demo only. Market data and non-WOS tax rates are placeholders, not current quotes or tax advice.</p>
+      </aside>
+      <div>
+        <div class="kpis">
+          <article class="card kpi"><div class="kpihead">EST. ANNUAL OPERATING COST <span class="kpiicon">₹</span></div><div class="value" id="kpiCost">₹31.4 Cr</div><div class="hint" id="costHint">Best-scoring location · annual</div></article>
+          <article class="card kpi"><div class="kpihead">5-YEAR TAX ESTIMATE <span class="kpiicon">%</span></div><div class="value" id="kpiTax">₹34.6 Cr</div><div class="delta" id="taxDelta">Selected scenario</div></article>
+          <article class="card kpi"><div class="kpihead">TALENT AVAILABILITY <span class="kpiicon">◎</span></div><div class="value" id="kpiTalent">92 / 100</div><div class="hint">Demo talent pool index</div></article>
+          <article class="card kpi"><div class="kpihead">PLANNING HORIZON <span class="kpiicon">◷</span></div><div class="value" id="kpiTime">12 weeks</div><div class="hint">Indicative setup estimate</div></article>
+        </div>
+        <div class="section">
+          <div class="sectionhead"><div><h2>Location comparison</h2><p>Illustrative annual operating costs · sorted by fit score</p></div><div class="segmented"><button class="active" data-sort="score">Best fit</button><button data-sort="cost">Lowest cost</button></div></div>
+          <div class="card tablecard"><div class="tabletop"><strong style="font-size:12px">Candidate locations <span class="muted" id="cityCount">8 markets</span></strong><span class="tag">DEMO BENCHMARKS</span></div><div class="scroll"><table><thead><tr><th>Location</th><th>Fit score</th><th>Annual payroll</th><th>Office rent</th><th>Talent index</th><th>Attrition</th><th>Annual total</th></tr></thead><tbody id="locations"></tbody></table></div></div>
+        </div>
+        <div class="section bottomgrid">
+          <article class="card inner"><div class="sectionhead"><div><h2>Operating cost by city</h2><p>Annual payroll + office rent</p></div><span class="pill">₹ Crore</span></div><div id="chart" class="chart"></div><div class="legend"><span>Lower cost</span><span>Indicative, not quoted</span></div></article>
+          <article class="card inner"><div class="sectionhead"><div><h2>Tax scenario summary</h2><p id="taxLabel">Wholly owned subsidiary</p></div><span class="pill">Scenario model</span></div><div class="taxrow"><span class="muted">Illustrative effective rate</span><strong id="rate">25.168%</strong></div><div class="taxrow"><span class="muted">Annual tax estimate</span><strong id="annualTax">₹6.29 Cr</strong></div><div class="taxrow"><span class="muted">5-year tax estimate</span><strong id="fiveTax">₹34.6 Cr</strong></div><div class="taxrow"><span class="muted">Compliance overhead</span><strong id="compliance">Medium <span class="pill">45/100</span></strong></div><div class="taxrow"><span class="muted">Setup estimate</span><strong id="setup">12 weeks</strong></div></article>
+        </div>
+        <div class="notice"><span>ⓘ</span><div><b>Decision-support, not professional advice.</b> All location metrics are synthetic demo assumptions. Tax scenarios require professional validation for eligibility, tax base, current law, and applicable incentives.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="policies" class="view">
+    <div class="sectionhead"><div><h2>State incentives tracker</h2><p>Sample policy cards showing the intended information architecture; verify current scheme terms before reliance.</p></div><span class="tag">SAMPLE RECORDS</span></div>
+    <div class="policygrid">
+      <article class="card mini"><span class="pill">Karnataka</span><div class="big">IT / GCC policy</div><p>Track eligible investment, employment commitments, local conditions, application windows, and official policy references.</p><strong>Verification: Required</strong></article>
+      <article class="card mini"><span class="pill">Telangana</span><div class="big">IT & electronics</div><p>Capture eligible capex, employment-related support, infrastructure provisions, and district-specific applicability.</p><strong>Verification: Required</strong></article>
+      <article class="card mini"><span class="pill">Tamil Nadu</span><div class="big">IT / business services</div><p>Structure policy benefits with qualifying thresholds, approved costs, time limits, and source-document version.</p><strong>Verification: Required</strong></article>
+      <article class="card mini"><span class="pill">Maharashtra</span><div class="big">Investment incentives</div><p>Model location and investment eligibility, relevant zones, application evidence, and approval dependencies.</p><strong>Verification: Required</strong></article>
+      <article class="card mini"><span class="pill">Uttar Pradesh</span><div class="big">IT & GCC ecosystem</div><p>Record applicable policy version, eligible units, incentive ceilings, and claim submission conditions.</p><strong>Verification: Required</strong></article>
+      <article class="card mini"><span class="pill">Cross-state</span><div class="big">Eligibility checklist</div><p>Production workflow should evaluate each rule, explain exclusions, prevent unsupported stacking, and preserve reviewer sign-off.</p><strong>Verification: Required</strong></article>
+    </div>
+  </section>
+
+  <section id="vendors" class="view">
+    <div class="sectionhead"><div><h2>Verified vendor network</h2><p>Example marketplace layout; these are categories, not actual verified vendor listings.</p></div><button class="btn primary" id="rfp">＋ Create sample RFP</button></div>
+    <div class="vendorgrid">
+      <article class="card mini"><span class="pill">Tax & legal</span><div class="big">Entity setup & compliance</div><p>Shortlist advisors by jurisdiction, industry experience, relevant project evidence, and verified references.</p><button class="btn shortlist" data-kind="Tax & legal">Add to shortlist</button></article>
+      <article class="card mini"><span class="pill">Real estate</span><div class="big">Workplace & site selection</div><p>Compare micro-markets, occupancy costs, fit-out timelines, lease terms, and delivery track record.</p><button class="btn shortlist" data-kind="Real estate">Add to shortlist</button></article>
+      <article class="card mini"><span class="pill">Talent</span><div class="big">Recruitment & EOR</div><p>Evaluate hiring capacity, role specialization, time-to-fill, service levels, and verified GCC outcomes.</p><button class="btn shortlist" data-kind="Talent">Add to shortlist</button></article>
+    </div>
+    <div class="card inner" style="margin-top:16px"><h2>Buyer shortlist</h2><p class="muted" id="shortlistText" style="font-size:12px">No categories shortlisted yet.</p></div>
+  </section>
+  <div class="footer">GCC Intelligence · Prototype v0.1 · Demo figures only · No live market feed connected</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const base = [
+ {name:"Bengaluru",state:"Karnataka",salary:145000,rent:115,talent:92,attrition:18,icon:"◈"},
+ {name:"Hyderabad",state:"Telangana",salary:132000,rent:78,talent:86,attrition:15,icon:"◇"},
+ {name:"Pune",state:"Maharashtra",salary:125000,rent:82,talent:80,attrition:16,icon:"⬡"},
+ {name:"Chennai",state:"Tamil Nadu",salary:118000,rent:70,talent:78,attrition:14,icon:"◉"},
+ {name:"Ahmedabad",state:"Gujarat",salary:92000,rent:55,talent:62,attrition:13,icon:"△"},
+ {name:"Coimbatore",state:"Tamil Nadu",salary:85000,rent:42,talent:52,attrition:12,icon:"◇"},
+ {name:"Jaipur",state:"Rajasthan",salary:88000,rent:48,talent:55,attrition:14,icon:"⬡"},
+ {name:"Kochi",state:"Kerala",salary:95000,rent:50,talent:57,attrition:13,icon:"◉"}
+];
+const tax = {wos:{rate:.25168,label:"Wholly owned subsidiary · 115BAA",weeks:12,score:45,compliance:"Medium"},gift:{rate:.10,label:"GIFT City / IFSC · placeholder",weeks:18,score:75,compliance:"High"},sez:{rate:.20,label:"SEZ / STPI hybrid · placeholder",weeks:16,score:65,compliance:"Medium-high"}};
+let sortMode="score", current=[];
+const $=id=>document.getElementById(id);
+const cr=n=>"₹"+(n/1e7).toLocaleString("en-IN",{maximumFractionDigits:1,minimumFractionDigits:1})+" Cr";
+const rupee=n=>"₹"+Math.round(n).toLocaleString("en-IN");
+function calculate(){
+ const hc=+$("headcount").value, growth=+$("growth").value/100, fn=$("function").value, regime=tax[$("regime").value], profit=+$("profit").value*1e7;
+ $("headcountVal").textContent=hc.toLocaleString("en-IN")+" people"; $("growthVal").textContent=(growth*100)+"%";
+ const budget=$("budget").value;
+ current=base.map(x=>{
+   let salary=x.salary*(fn==="finance"?.88:fn==="mixed"?.96:1);
+   const payroll=salary*12*hc;
+   const rent=x.rent*100*hc*12;
+   const cost=payroll+rent;
+   const score=x.talent*.55+(100-x.attrition*2)*.15+Math.max(0,100-salary/2000)*.2+Math.max(0,100-x.rent/2)*.1;
+   return {...x,payroll,rent,cost,score:Math.round(score*10)/10};
+ });
+ if(budget!=="any") current=current.filter(x=>x.cost<=+$("budget").value*1e7);
+ current.sort(sortMode==="cost"?(a,b)=>a.cost-b.cost:(a,b)=>b.score-a.score);
+ $("cityCount").textContent=current.length+" markets";
+ $("locations").innerHTML=current.length?current.map((x,i)=>`<tr><td><div class="city"><span class="cityicon">${x.icon}</span><div><strong>${x.name}</strong>${i===0?'<span class="recommend">BEST MATCH</span>':""}<div class="subline">${x.state}</div></div></div></td><td><span class="score">${x.score}</span><div class="bar"><span style="width:${x.score}%"></span></div></td><td>${cr(x.payroll)}</td><td>${rupee(x.rent/12/hc/100)} / sq ft/mo</td><td>${x.talent}/100</td><td>${x.attrition}%</td><td><strong>${cr(x.cost)}</strong></td></tr>`).join(""):'<tr><td colspan="7" style="text-align:center;padding:28px;color:#718096">No cities fit this budget. Increase your budget or headcount assumptions.</td></tr>';
+ const best=current[0]||base[0];
+ $("kpiCost").textContent=best?cr(best.cost):"—"; $("costHint").textContent=best?best.name+" · annual estimate":"No matching city";
+ $("kpiTalent").textContent=best?best.talent+" / 100":"—";
+ $("kpiTime").textContent=regime.weeks+" weeks";
+ let five=0,p=profit; for(let i=0;i<5;i++){five+=p*regime.rate;p*=1+growth}
+ $("kpiTax").textContent=cr(five); $("taxDelta").textContent=(regime.rate*100).toFixed(3)+"% illustrative rate";
+ $("taxLabel").textContent=regime.label;$("rate").textContent=(regime.rate*100).toFixed(3)+"%";
+ $("annualTax").textContent=cr(profit*regime.rate);$("fiveTax").textContent=cr(five);
+ $("compliance").innerHTML=regime.compliance+' <span class="pill">'+regime.score+'/100</span>';$("setup").textContent=regime.weeks+" weeks";
+ const chartRows=[...current].sort((a,b)=>a.cost-b.cost).slice(0,5);const max=Math.max(...chartRows.map(x=>x.cost),1);
+ $("chart").innerHTML=chartRows.map(x=>`<div class="barcol" title="${x.name}: ${cr(x.cost)}"><div class="barshape" style="height:${x.cost/max*100}%"></div><span>${x.name}</span></div>`).join("");
+}
+function toast(msg){const t=$("toast");t.textContent=msg;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2600)}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));$(b.dataset.view).classList.add("active")}));
+document.querySelectorAll("[data-sort]").forEach(b=>b.addEventListener("click",()=>{sortMode=b.dataset.sort;document.querySelectorAll("[data-sort]").forEach(x=>x.classList.toggle("active",x===b));calculate()}));
+["headcount","growth","function","budget","regime","profit"].forEach(id=>$(id).addEventListener("input",calculate));
+$("run").addEventListener("click",()=>{calculate();toast("Scenario recalculated using demo assumptions.")});
+$("reset").addEventListener("click",()=>{$("headcount").value=300;$("growth").value=20;$("function").value="engineering";$("budget").value="any";$("regime").value="wos";$("profit").value="25";sortMode="score";document.querySelectorAll("[data-sort]").forEach(x=>x.classList.toggle("active",x.dataset.sort==="score"));calculate();toast("Scenario reset to defaults.")});
+$("export").addEventListener("click",()=>{calculate();const rows=[["Location","State","Fit score","Annual payroll INR","Annual rent INR","Talent index","Attrition %","Annual operating cost INR"],...current.map(x=>[x.name,x.state,x.score,Math.round(x.payroll),Math.round(x.rent),x.talent,x.attrition,Math.round(x.cost)])];const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="gcc-location-comparison.csv";a.click();URL.revokeObjectURL(a.href);toast("Location comparison exported as CSV.")});
+let shortlist=[];document.querySelectorAll(".shortlist").forEach(b=>b.addEventListener("click",()=>{if(!shortlist.includes(b.dataset.kind))shortlist.push(b.dataset.kind);$("shortlistText").textContent=shortlist.join(" · ");b.textContent="✓ Shortlisted";b.classList.add("primary");toast(b.dataset.kind+" added to shortlist.")}));
+$("rfp").addEventListener("click",()=>{const title=prompt("RFP title","India GCC setup partner");if(title&&title.trim())toast('Draft RFP created: "'+title.trim()+'". Demo only; not submitted.')});
+calculate();
+</script>
+</body></html>
